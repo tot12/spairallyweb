@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concealed Weapon Detection System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            color: #fff;
+            height: 100vh;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .main-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 3.5rem;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 2.5rem;
+        }
+        
+        .tagline-container {
+            background: transparent;
+            border: none;
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+            transition: all 0.3s ease;
+        }
+        
+        .tagline-container:hover {
+            background: transparent;
+            transform: translateY(-2px);
+        }
+        
+        .phone-icon {
+            font-size: 1.8rem;
+            color: #4fc3f7;
+            margin-right: 0.75rem;
+            vertical-align: middle;
+        }
+        
+        .tagline-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: #f5f5f5;
+            margin: 0;
+            letter-spacing: 0.02em;
+        }
+        
+        .coming-soon {
+            margin-top: 3rem;
+            opacity: 0.7;
+        }
+        
+        .coming-soon-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 300;
+            color: #b0b0b0;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.5rem;
+            }
+            
+            .tagline-container {
+                padding: 1.25rem 1.5rem;
+                margin: 1.5rem 1rem;
+            }
+            
+            .tagline-text {
+                font-size: 1.1rem;
+            }
+            
+            .phone-icon {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 2rem;
+                margin-bottom: 2rem;
+            }
+            
+            .tagline-text {
+                font-size: 1rem;
+            }
+        }
+    </style>
+
+</head>
+
+<body class="d-flex flex-column justify-content-center align-items-center">
+    <div class="container-fluid text-center px-4">
+        <h1 class="main-title">
+            A concealed weapon detection system with AI
+        </h1>
+        
+        <div class="tagline-container">
+            <p class="tagline-text">
+                <i class="bi bi-phone phone-icon" aria-label="phone"></i>
+                 +  spairally = safety in your hands
+            </p>
+        </div>
+        
+        <div class="coming-soon">
+            <p class="coming-soon-text">coming soon</p>
+        </div>
+    </div>
+</body>
+</html>
