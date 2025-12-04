@@ -3,126 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Concealed Weapon Detection System</title>
+    <title>Spairally</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
-        
-        body {
-            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-            color: #fff;
-            height: 100vh;
-            font-family: 'Inter', sans-serif;
-        }
-        
-        .main-title {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            font-size: 3.5rem;
-            line-height: 1.2;
-            letter-spacing: -0.02em;
-            background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 2.5rem;
-        }
-        
-        .tagline-container {
-            background: transparent;
-            border: none;
-            border-radius: 16px;
-            padding: 1.5rem 2rem;
-            margin: 2rem 0;
-            transition: all 0.3s ease;
-        }
-        
-        .tagline-container:hover {
-            background: transparent;
-            transform: translateY(-2px);
-        }
-        
-        .phone-icon {
-            font-size: 1.8rem;
-            color: #4fc3f7;
-            margin-right: 0.75rem;
-            vertical-align: middle;
-        }
-        
-        .tagline-text {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.25rem;
-            font-weight: 500;
-            color: #f5f5f5;
-            margin: 0;
-            letter-spacing: 0.02em;
-        }
-        
-        .coming-soon {
-            margin-top: 3rem;
-            opacity: 0.7;
-        }
-        
-        .coming-soon-text {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.95rem;
-            font-weight: 300;
-            color: #b0b0b0;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            margin: 0;
-        }
-        
-        @media (max-width: 768px) {
-            .main-title {
-                font-size: 2.5rem;
-            }
-            
-            .tagline-container {
-                padding: 1.25rem 1.5rem;
-                margin: 1.5rem 1rem;
-            }
-            
-            .tagline-text {
-                font-size: 1.1rem;
-            }
-            
-            .phone-icon {
-                font-size: 1.5rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .main-title {
-                font-size: 2rem;
-                margin-bottom: 2rem;
-            }
-            
-            .tagline-text {
-                font-size: 1rem;
-            }
-        }
-    </style>
-
+    <link href="styles.css" rel="stylesheet">
 </head>
 
-<body class="d-flex flex-column justify-content-center align-items-center">
-    <div class="container-fluid text-center px-4">
-        <h1 class="main-title">
-            A concealed weapon detection system with AI
-        </h1>
-        
-        <div class="tagline-container">
-            <p class="tagline-text">
-                <i class="bi bi-phone phone-icon" aria-label="phone"></i>
-                 +  spairally = safety in your hands
-            </p>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#home" class="nav-brand">
+                <img src="images/s.png" alt="Spairally Logo" class="nav-logo">
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About Us</a></li>
+                <li><a href="#waitlist" class="nav-link">Join Waitlist</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
-        
-        <div class="coming-soon">
-            <p class="coming-soon-text">coming soon</p>
+    </nav>
+
+    <div id="home"></div>
+
+    <!-- Hero Section -->
+    <div class="d-flex flex-column align-items-center hero-section" style="padding-top: 100px; padding-bottom: 50px;">
+        <div class="container-fluid text-center px-4">
+            
+            <h1 class="main-title">
+                A concealed weapon detection system with AI
+            </h1>
+            
+            <div class="tagline-container">
+                <p class="tagline-text">
+                    <i class="bi bi-phone phone-icon" aria-label="phone"></i>
+                     +  spairally = safety in your hands
+                </p>
+            </div>
         </div>
     </div>
+
+    <!-- About Us Section -->
+    <section id="about" class="about-section">
+       <div class="mission-vision-container">
+            <div class="mission-box">
+                <h3 class="box-title">
+                    <i class="bi bi-bullseye box-icon"></i>
+                    Our Mission
+                </h3>
+                <p class="box-text">
+                    To revolutionize public safety through cutting-edge AI technology, providing real-time concealed weapon detection that protects communities, schools, and public spaces. We're committed to creating a safer world where security is seamless, non-intrusive, and powered by innovation.
+                </p>
+            </div>
+            <div class="vision-box">
+                <h3 class="box-title">
+                    <i class="bi bi-eye box-icon"></i>
+                    Our Vision
+                </h3>
+                <p class="box-text">
+                    To become the global leader in AI-driven security solutions, making weapon detection accessible, affordable, and effective for every organization. We envision a future where advanced technology empowers communities to prevent threats before they happen, ensuring a safer future.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Waitlist Section -->
+    <section id="waitlist" class="waitlist-section">
+        <h2 class="waitlist-title text-center">Join Our Waitlist</h2>
+        <p class="waitlist-description text-center">
+            Be among the first to experience the future of safety. Sign up now and get exclusive early access to Spairally.
+        </p>
+        <div class="text-center">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdevsGrWmnHSsk_p-MKJHvJB0_KxSKrQhIl9n9XQqQH1cSJSg/viewform" target="_blank" class="submit-btn" style="display: inline-block; text-decoration: none;">Join Waitlist</a>
+        </div>
+    </section>
+
+    <div style="height: 3rem;"></div>
+
+    <script>
+        // Hamburger menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+        
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.nav-container')) {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>
+
