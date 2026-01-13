@@ -7,7 +7,7 @@ document.getElementById("deleteAccountForm").addEventListener("submit", async e 
   const email = document.getElementById("email").value;
 
   const res = await fetch(`${API_URL}/auth/delete-account`, {
-    method: "DELETE",
+    method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email })
   });
