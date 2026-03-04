@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sponsor Our Development</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link href="styles.css" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #000000;
+    --bg-secondary: #0a0a0a;
+    --bg-card: #111111;
+    --bg-card-hover: #1a1a1a;
+    --border: #2a2a2a;
+    --border-hover: #444444;
+    --text-primary: #ededed;
+    --text-secondary: #888888;
+    --text-muted: #555555;
+    --accent: #ffffff;
+    --accent-blue: #0070f3;
+    --accent-blue-hover: #3291ff;
+    --gradient-start: #ffffff;
+    --gradient-end: #888888;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+ 
+
+
+ 
+  /* HERO */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding: 120px 32px 100px;
+    text-align: center;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(255,255,255,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero-badge-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #00ff88;
+    box-shadow: 0 0 8px #00ff88;
+    animation: pulse 2s ease infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  
+
+  .hero p {
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--text-secondary);
+    max-width: 520px;
+    margin: 0 auto 48px;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* BUTTONS */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent);
+    color: #000;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+  }
+
+  .btn-primary:hover {
+    background: #e0e0e0;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(255,255,255,0.1);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--text-primary);
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s, transform 0.1s;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--border-hover);
+    background: rgba(255,255,255,0.04);
+    transform: translateY(-1px);
+  }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* STATS BAR */
+  .stats {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    padding: 48px 32px;
+    max-width: 1100px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--border);
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+
+  .stat {
+    flex: 1;
+    text-align: center;
+    padding: 0 32px;
+    border-right: 1px solid var(--border);
+  }
+
+  .stat:last-child { border-right: none; }
+
+  .stat-value {
+    font-family: 'Poppins', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+  }
+
+  .stat-label {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 4px;
+    font-weight: 400;
+  }
+
+  /* SECTION */
+  .section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 32px;
+  }
+
+  .section-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+
+  .section-desc {
+    font-size: 15px;
+    color: var(--text-secondary);
+    max-width: 520px;
+    margin-bottom: 56px;
+  }
+
+  /* TIERS GRID */
+  .tiers {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .tier-card {
+    background: var(--bg-card);
+    padding: 36px 32px;
+    display: flex;
+    flex-direction: column;
+    transition: background 0.2s;
+    position: relative;
+  }
+
+  .tier-card:hover { background: var(--bg-card-hover); }
+
+  .tier-card.featured {
+    background: var(--bg-card-hover);
+  }
+
+  .tier-card.featured::before {
+    content: 'Most Popular';
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: rgba(0,112,243,0.15);
+    color: var(--accent-blue-hover);
+    border: 1px solid rgba(0,112,243,0.3);
+    padding: 4px 10px;
+    border-radius: 100px;
+  }
+
+  .tier-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    font-size: 18px;
+  }
+
+  .tier-name {
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+
+  .tier-price {
+    font-family: 'Poppins', sans-serif;
+    font-size: 40px;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .tier-price span {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0;
+  }
+
+  .tier-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 28px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tier-features {
+    list-style: none;
+    flex: 1;
+    margin-bottom: 32px;
+  }
+
+  .tier-features li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    padding: 7px 0;
+  }
+
+  .tier-features li::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23888' d='M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .tier-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: all 0.15s;
+  }
+
+  .tier-btn-outline {
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+  }
+
+  .tier-btn-outline:hover {
+    background: rgba(255,255,255,0.06);
+    border-color: var(--border-hover);
+  }
+
+  .tier-btn-filled {
+    background: var(--accent-blue);
+    color: white;
+  }
+
+  .tier-btn-filled:hover {
+    background: var(--accent-blue-hover);
+    box-shadow: 0 0 0 3px rgba(0,112,243,0.2);
+  }
+
+  .tier-btn-white {
+    background: var(--accent);
+    color: #000;
+  }
+
+  .tier-btn-white:hover {
+    background: #e0e0e0;
+    box-shadow: 0 0 0 3px rgba(255,255,255,0.1);
+  }
+
+  /* PERKS SECTION */
+  .perks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .perk {
+    background: var(--bg-card);
+    padding: 28px 28px;
+    transition: background 0.2s;
+  }
+
+  .perk:hover { background: var(--bg-card-hover); }
+
+  .perk-icon {
+    font-size: 20px;
+    margin-bottom: 14px;
+  }
+
+  .perk-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+  }
+
+  .perk-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  /* LEGAL */
+  .legal-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 32px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  .legal-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .legal-box h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+
+  .legal-box p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  /* CTA BAND */
+  .cta-band {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, #0a0a0a 0%, #000 100%);
+    padding: 80px 32px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-band::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(0,112,243,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-band h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(24px, 4vw, 40px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+
+  .cta-band p {
+    color: var(--text-secondary);
+    font-size: 15px;
+    margin-bottom: 36px;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 40px 32px;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .footer-logo {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+  }
+
+  .footer-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 13px;
+    transition: color 0.15s;
+  }
+
+  .footer-links a:hover { color: var(--text-secondary); }
+
+  .footer-copy {
+    color: var(--text-muted);
+    font-size: 12px;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+   
+    .hero { padding: 80px 20px 70px; }
+    .stats { flex-direction: column; gap: 24px; }
+    .stat { border-right: none; border-bottom: 1px solid var(--border); padding: 0 0 24px; }
+    .stat:last-child { border-bottom: none; }
+    .section { padding: 60px 20px; }
+    footer { flex-direction: column; text-align: center; }
+    .footer-links { flex-wrap: wrap; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="navbar">
+        <div class="nav-container">
+            <a href="#home" class="nav-brand">
+                <img src="images/s.png" alt="Spairally Logo" class="nav-logo">
+            </a>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+               
+                <li><a href="https://play.google.com/store/apps/details?id=com.spairally.app" target="_blank" class="nav-link">Download App</a></li>
+                <li><a href="terms-and-conditions.html" class="nav-link">Terms</a></li>
+                <li><a href="privacy-policy.html" class="nav-link">Privacy</a></li>
+                <li><a href="delete-account.html" class="nav-link">Account</a></li>
+                </ul>
+            
+        </div>
+    </nav>
+
+<!-- HERO -->
+<section class="hero">
+
+  <h1 class="main-title">Back the Future of Public Safety</h1>
+  <p>Join our sponsors and help us ship faster, reach further, and build infrastructure that protects everyone.</p>
+  <div class="hero-actions">
+    <a href="#tiers" class="btn-primary">
+      View Tiers
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <a href="mailto:wendy@spairally.com" class="btn-secondary">Talk to us</a>
+  </div>
+</section>
+
+<!-- TIERS -->
+<section class="section" id="tiers">
+  <div class="section-label">Sponsorship Tiers</div>
+  <h2 class="section-title">Choose your level of impact</h2>
+  <p class="section-desc">Every tier directly funds development, infrastructure, and security research. Pick the one that fits your goals.</p>
+
+  <div class="tiers">
+
+    <!-- Supporter -->
+    <div class="tier-card">
+      
+      <div class="tier-name">Supporter</div>
+      <div class="tier-price">$250 <span>/ one-time</span></div>
+      <div class="tier-desc">Perfect for individuals and small teams who want to back our mission.</div>
+      <ul class="tier-features">
+        <li>Website recognition</li>
+        <li>Social media shoutout</li>
+        <li>Early feature updates</li>
+        <li>Community access</li>
+      </ul>
+      <a href="https://buy.stripe.com/bJe4gy3Ug2YIgmk4CLdAk00" class="tier-btn tier-btn-outline">Sponsor Now</a>
+    </div>
+
+    <!-- Technology Sponsor -->
+    <div class="tier-card featured">
+      
+      <div class="tier-name">Technology Sponsor</div>
+      <div class="tier-price">$1,000 <span>/ one-time</span></div>
+      <div class="tier-desc">For companies that want meaningful recognition and early product access.</div>
+      <ul class="tier-features">
+        <li>Logo on sponsor page</li>
+        <li>Launch announcement feature</li>
+        <li>Early beta access</li>
+        <li>Priority support channel</li>
+        <li>Quarterly product briefing</li>
+      </ul>
+      <a href="https://buy.stripe.com/3cIbJ076s8j20nm3yHdAk01" class="tier-btn tier-btn-filled">Sponsor Now</a>
+    </div>
+
+    <!-- Security Partner -->
+    <div class="tier-card">
+      
+      <div class="tier-name">Security Partner</div>
+      <div class="tier-price">$5,000 <span>/ one-time</span></div>
+      <div class="tier-desc">Strategic partnership with premium visibility and direct collaboration access.</div>
+      <ul class="tier-features">
+        <li>Premium branding placement</li>
+        <li>Press release mention</li>
+        <li>Direct engineering access</li>
+        <li>Co-marketing opportunities</li>
+        <li>Advisory board invitation</li>
+        <li>Custom integration support</li>
+      </ul>
+      <a href="https://buy.stripe.com/3cI4gy1M856Q2vu7OXdAk02" class="tier-btn tier-btn-white">Sponsor Now</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- PERKS -->
+<section class="section" style="padding-top:0;">
+  <div class="section-label">Why Sponsor</div>
+  <h2 class="section-title">What your support enables</h2>
+  <p class="section-desc">Sponsorships directly translate into real product milestones and community growth.</p>
+
+  <div class="perks-grid">
+    <div class="perk">
+      <div class="perk-title">Faster Development</div>
+      <div class="perk-desc">Funding accelerates our roadmap by allowing us to hire and ship without constraints.</div>
+    </div>
+    <div class="perk">
+      <div class="perk-title">Real world tests </div>
+      <div class="perk-desc">We invest in real world tests in order to improve our products' performance in real world scenarios.</div>
+    </div>
+    <div class="perk">
+      <div class="perk-title">Global Reach</div>
+      <div class="perk-desc">Infrastructure funding helps us serve users reliably across 172 countries.</div>
+    </div>
+    
+  </div>
+</section>
+
+<!-- LEGAL -->
+<section class="section" style="padding-top:0;">
+  <div class="legal-box">
+    <div>
+      <h3>Legal Notice</h3>
+      <p>Sponsorship contributions are classified as business revenue and do not constitute equity, securities, profit-sharing agreements, or any form of ownership interest. Sponsors receive recognition and agreed-upon benefits only. All sponsorships are non-refundable once processed.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<div class="cta-band">
+  <h2>Ready to make an impact?</h2>
+  <p>Reach out and let's find the right tier for your goals.</p>
+  <div class="hero-actions">
+    <a href="#tiers" class="btn-primary">Get Started</a>
+    <a href="mailto:wendy@spairally.com" class="btn-secondary">Contact us </a>
+  </div>
+</div>
+
+
+
+</body>
+</html>
