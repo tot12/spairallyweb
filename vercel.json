@@ -4,6 +4,10 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/reset-password", "destination": "/reset-password.html" }
+    { "source": "/reset-password", "destination": "/reset-password.html" },
+     { "source": "/login",      "destination": "/spairallyb2b/public/index.html" },
+    { "source": "/dashboard",  "destination": "/spairallyb2b/public/index.html" },
+    { "source": "/history",    "destination": "/spairallyb2b/public/index.html" },
+    { "source": "/users",      "destination": "/spairallyb2b/public/index.html" }
   ]
 }
