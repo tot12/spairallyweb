@@ -4,7 +4,7 @@
   "cleanUrls": false,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/reset-password", "destination": "/reset-password.html" },
+    { "source": "/reset-password", "destination": "/reset-password.html" }
     
   ]
 }
