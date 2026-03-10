@@ -4,7 +4,6 @@
   "cleanUrls": false,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/api/:path*", "destination": "/api/proxy?path=:path*" },
     { "source": "/reset-password", "destination": "/reset-password.html" },
     { "source": "/login",          "destination": "/bella.html" },
     { "source": "/dashboard",      "destination": "/bella.html" },
