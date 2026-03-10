@@ -8,7 +8,7 @@
 // config
 // ─────────────────────────────────────────────────────────────
 
-const API_BASE = "https://nchisecapi-production.up.railway.app";
+const API_BASE = '/api';
 
 function getAuthHeaders() {
   const token = localStorage.getItem('spairally_token');
