@@ -1,4 +1,4 @@
-const API_URL = "/api";
+const API_URL = "https://nchisecapi-production.up.railway.app";
 
 function showMessage(container, text, variant = 'info'){
   if(!container) return;
