@@ -5,9 +5,6 @@
   "trailingSlash": false,
   "rewrites": [
     { "source": "/reset-password", "destination": "/reset-password.html" },
-    { "source": "/login",          "destination": "/spairallyb2b/public/bella.html" },
-    { "source": "/dashboard",      "destination": "/spairallyb2b/public/bella.html" },
-    { "source": "/history",        "destination": "/spairallyb2b/public/bella.html" },
-    { "source": "/users",          "destination": "/spairallyb2b/public/bella.html" }
+    
   ]
 }
