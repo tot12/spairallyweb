@@ -275,8 +275,7 @@ async function loadPolygon() {
   }
 
   try {
-    const params = new URLSearchParams({ institution: currentUser.organization });
-    const res = await fetch(`${API_BASE}/bella/geofence?${params}`, {
+    const res = await fetch(`${API_BASE}/bella/geofence`, {
       headers: getAuthHeaders(),
     });
     const data = await res.json();
