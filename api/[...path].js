@@ -5,7 +5,7 @@
 
 const RAILWAY = 'https://nchisecapi-production.up.railway.app';
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   // req.query.path is the catch-all array, e.g. /api/auth/login → ['auth','login']
   const segments = Array.isArray(req.query.path)
     ? req.query.path
