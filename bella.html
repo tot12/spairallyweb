@@ -39,10 +39,10 @@
       <!-- LOGIN -->
       <form id="login-form" class="auth-form" autocomplete="off">
         <div class="form-group">
-          <label class="form-label">Username</label>
+          <label class="form-label">Email</label>
           <div class="input-wrapper">
-            <i data-lucide="user" class="input-icon"></i>
-            <input type="text" id="login-name" class="form-input" placeholder="Enter your name" required />
+            <i data-lucide="mail" class="input-icon"></i>
+            <input type="email" id="login-email" class="form-input" placeholder="Enter your email" required />
           </div>
         </div>
         <div class="form-group">
@@ -63,24 +63,31 @@
       <!-- REGISTER -->
       <form id="register-form" class="auth-form" style="display:none;" autocomplete="off">
         <div class="form-group">
-          <label class="form-label">Full Name</label>
+          <label class="form-label">First Name</label>
           <div class="input-wrapper">
             <i data-lucide="user" class="input-icon"></i>
-            <input type="text" id="reg-name" class="form-input" placeholder="Enter your full name" required />
+            <input type="text" id="reg-firstName" class="form-input" placeholder="Enter your first name" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last Name</label>
+          <div class="input-wrapper">
+            <i data-lucide="user" class="input-icon"></i>
+            <input type="text" id="reg-lastName" class="form-input" placeholder="Enter your last name" required />
           </div>
         </div>
         <div class="form-group">
           <label class="form-label">Email</label>
           <div class="input-wrapper">
             <i data-lucide="mail" class="input-icon"></i>
-            <input type="email" id="reg-email" class="form-input" placeholder="you@institution.edu" />
+            <input type="email" id="reg-email" class="form-input" placeholder="you@institution.edu" required />
           </div>
         </div>
         <div class="form-group">
-          <label class="form-label">Institution</label>
+          <label class="form-label">Organization</label>
           <div class="input-wrapper">
             <i data-lucide="building-2" class="input-icon"></i>
-            <input type="text" id="reg-institution" class="form-input" placeholder="University / Organisation" required />
+            <input type="text" id="reg-organization" class="form-input" placeholder="University / Organisation" required />
           </div>
         </div>
         <div class="form-group">

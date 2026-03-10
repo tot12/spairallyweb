@@ -102,14 +102,14 @@ function initAuthListeners() {
     e.preventDefault();
     clearAuthError('login-error');
     const btn      = e.target.querySelector('button[type=submit]');
-    const name     = document.getElementById('login-name').value.trim();
+    const email    = document.getElementById('login-email').value.trim();
     const password = document.getElementById('login-password').value;
     setBtnLoading(btn, true);
     try {
       const res = await fetch(`${API_BASE}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, password }),
+        body: JSON.stringify({ email, password }),
       });
       const data = await res.json();
       if (!res.ok) throw { response: { status: res.status, data } };
@@ -132,13 +132,14 @@ function initAuthListeners() {
   document.getElementById('register-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     clearAuthError('register-error');
-    const btn         = e.target.querySelector('button[type=submit]');
-    const name        = document.getElementById('reg-name').value.trim();
-    const email       = document.getElementById('reg-email').value.trim();
-    const institution = document.getElementById('reg-institution').value.trim();
-    const password    = document.getElementById('reg-password').value;
+    const btn          = e.target.querySelector('button[type=submit]');
+    const firstName    = document.getElementById('reg-firstName').value.trim();
+    const lastName     = document.getElementById('reg-lastName').value.trim();
+    const email        = document.getElementById('reg-email').value.trim();
+    const organization = document.getElementById('reg-organization').value.trim();
+    const password     = document.getElementById('reg-password').value;
     setBtnLoading(btn, true);
-    const payload = { name, email, institution, password };
+    const payload = { firstName, lastName, email, password, organization };
     console.log('[REGISTER] URL:', `${API_BASE}/auth/register`);
     console.log('[REGISTER] Payload:', JSON.stringify(payload, null, 2));
     try {
@@ -165,11 +166,12 @@ function onLogin(user) {
   document.getElementById('auth-screen').style.display = 'none';
   document.getElementById('app').style.display = '';
 
-  const initial = (user.name || 'U')[0].toUpperCase();
+  const displayName = [user.firstname, user.lastname].filter(Boolean).join(' ') || 'User';
+  const initial = (user.firstname || user.lastname || 'U')[0].toUpperCase();
   document.getElementById('sidebar-avatar').textContent      = initial;
   document.getElementById('topbar-avatar').textContent       = initial;
-  document.getElementById('sidebar-username').textContent    = user.name || '—';
-  document.getElementById('sidebar-institution').textContent = user.institution || '—';
+  document.getElementById('sidebar-username').textContent    = displayName;
+  document.getElementById('sidebar-institution').textContent = user.organization || '—';
 
   const path   = location.pathname.slice(1);
   const target = APP_SECTIONS.includes(path) ? path : 'dashboard';
@@ -248,9 +250,9 @@ async function loadDashboard() {
   if (!currentUser) return;
 
   document.getElementById('dash-subtitle').textContent =
-    `Showing data for ${currentUser.institution || 'your institution'}`;
+    `Showing data for ${currentUser.organization || 'your organization'}`;
   document.getElementById('map-institution-label').textContent =
-    currentUser.institution || '';
+    currentUser.organization || '';
 
   await Promise.all([
     loadPolygon(),
@@ -273,7 +275,7 @@ async function loadPolygon() {
   }
 
   try {
-    const params = new URLSearchParams({ institution: currentUser.institution });
+    const params = new URLSearchParams({ institution: currentUser.organization });
     const res = await fetch(`${API_BASE}/bella/geofence?${params}`, {
       headers: getAuthHeaders(),
     });
@@ -311,8 +313,8 @@ function applyPolygon(geo) {
 
 async function loadDetections() {
   try {
-    const qs = currentUser?.institution
-      ? '?' + new URLSearchParams({ institution: currentUser.institution })
+    const qs = currentUser?.organization
+      ? '?' + new URLSearchParams({ institution: currentUser.organization })
       : '';
     const res = await fetch(`${API_BASE}/bella/detections${qs}`, {
       headers: getAuthHeaders(),
@@ -321,11 +323,11 @@ async function loadDetections() {
     allDetections = data || [];
   } catch {
     allDetections = [
-      { id:'d1', type:'Smoke Detection',  location:'Building A, Floor 2', institution: currentUser?.institution, severity:'high',   status:'resolved', time:'2026-03-10T08:32:00Z' },
-      { id:'d2', type:'Motion Detected',  location:'Parking Zone C',      institution: currentUser?.institution, severity:'low',    status:'active',   time:'2026-03-10T09:15:00Z' },
-      { id:'d3', type:'Perimeter Breach', location:'East Fence Line',     institution: currentUser?.institution, severity:'high',   status:'active',   time:'2026-03-10T10:01:00Z' },
-      { id:'d4', type:'Object Detected',  location:'Main Entrance',       institution: currentUser?.institution, severity:'medium', status:'resolved', time:'2026-03-09T14:22:00Z' },
-      { id:'d5', type:'Thermal Anomaly',  location:'Server Room',         institution: currentUser?.institution, severity:'medium', status:'active',   time:'2026-03-09T18:45:00Z' },
+      { id:'d1', type:'Smoke Detection',  location:'Building A, Floor 2', institution: currentUser?.organization, severity:'high',   status:'resolved', time:'2026-03-10T08:32:00Z' },
+      { id:'d2', type:'Motion Detected',  location:'Parking Zone C',      institution: currentUser?.organization, severity:'low',    status:'active',   time:'2026-03-10T09:15:00Z' },
+      { id:'d3', type:'Perimeter Breach', location:'East Fence Line',     institution: currentUser?.organization, severity:'high',   status:'active',   time:'2026-03-10T10:01:00Z' },
+      { id:'d4', type:'Object Detected',  location:'Main Entrance',       institution: currentUser?.organization, severity:'medium', status:'resolved', time:'2026-03-09T14:22:00Z' },
+      { id:'d5', type:'Thermal Anomaly',  location:'Server Room',         institution: currentUser?.organization, severity:'medium', status:'active',   time:'2026-03-09T18:45:00Z' },
     ];
   }
 
@@ -423,9 +425,9 @@ async function loadUsers() {
     allUsers = [
       {
         id: 'u1',
-        name: currentUser?.name || 'You',
-        email: '',
-        institution: currentUser?.institution,
+        name: [currentUser?.firstname, currentUser?.lastname].filter(Boolean).join(' ') || 'You',
+        email: currentUser?.email || '',
+        institution: currentUser?.organization,
         role: 'user',
         createdAt: new Date().toISOString(),
       },
