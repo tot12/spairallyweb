@@ -138,11 +138,14 @@ function initAuthListeners() {
     const institution = document.getElementById('reg-institution').value.trim();
     const password    = document.getElementById('reg-password').value;
     setBtnLoading(btn, true);
+    const payload = { name, email, institution, password };
+    console.log('[REGISTER] URL:', `${API_BASE}/auth/register`);
+    console.log('[REGISTER] Payload:', JSON.stringify(payload, null, 2));
     try {
       const res = await fetch(`${API_BASE}/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, institution, password }),
+        body: JSON.stringify(payload),
       });
       const data = await res.json();
       if (!res.ok) throw { response: { status: res.status, data } };
