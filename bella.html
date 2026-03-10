@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spairally - B2B Platform</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <!-- App styles -->
+  <link rel="stylesheet" href="spairallyb2b/public/styles.css" />
+</head>
+<body>
+
+<div id="app-root">
+
+  <!-- ─── Auth Screen ─────────────────────────────────── -->
+  <div id="auth-screen" class="auth-screen">
+    <div class="auth-bg-grid"></div>
+    <div class="auth-container">
+
+      <div class="auth-brand">
+        <img src="images/spairally_app_logo.png" alt="Spairally logo" class="app-logo">
+        <span class="logo-sep">|</span>
+        <span class="brand-name">Bella</span>
+      </div>
+
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tab-login" onclick="switchAuthTab('login')">Sign In</button>
+        <button class="auth-tab" id="tab-register" onclick="switchAuthTab('register')">Register</button>
+      </div>
+
+      <!-- LOGIN -->
+      <form id="login-form" class="auth-form" autocomplete="off">
+        <div class="form-group">
+          <label class="form-label">Username</label>
+          <div class="input-wrapper">
+            <i data-lucide="user" class="input-icon"></i>
+            <input type="text" id="login-name" class="form-input" placeholder="Enter your name" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <div class="input-wrapper">
+            <i data-lucide="lock" class="input-icon"></i>
+            <input type="password" id="login-password" class="form-input" placeholder="Enter your password" required />
+          </div>
+        </div>
+        <div id="login-error" class="form-error" style="display:none;"></div>
+        <button type="submit" class="btn-primary btn-full">
+          <span class="btn-text">Sign In</span>
+          <span class="btn-spinner" style="display:none;"></span>
+        </button>
+        <p class="auth-consent">By signing in you agree to our <a href="https://www.spairally.com/terms-and-conditions" target="_blank" class="auth-consent-link">Terms of Service</a> and <a href="https://www.spairally.com/privacy-policy" target="_blank" class="auth-consent-link">Privacy Policy</a>.</p>
+      </form>
+
+      <!-- REGISTER -->
+      <form id="register-form" class="auth-form" style="display:none;" autocomplete="off">
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <div class="input-wrapper">
+            <i data-lucide="user" class="input-icon"></i>
+            <input type="text" id="reg-name" class="form-input" placeholder="Enter your full name" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <div class="input-wrapper">
+            <i data-lucide="mail" class="input-icon"></i>
+            <input type="email" id="reg-email" class="form-input" placeholder="you@institution.edu" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Institution</label>
+          <div class="input-wrapper">
+            <i data-lucide="building-2" class="input-icon"></i>
+            <input type="text" id="reg-institution" class="form-input" placeholder="University / Organisation" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <div class="input-wrapper">
+            <i data-lucide="lock" class="input-icon"></i>
+            <input type="password" id="reg-password" class="form-input" placeholder="Create a password" required />
+          </div>
+        </div>
+        <div id="register-error" class="form-error" style="display:none;"></div>
+        <button type="submit" class="btn-primary btn-full">
+          <span class="btn-text">Create Account</span>
+          <span class="btn-spinner" style="display:none;"></span>
+        </button>
+        <p class="auth-consent">By creating an account you agree to our <a href="https://www.spairally.com/terms-and-conditions" target="_blank" class="auth-consent-link">Terms of Service</a> and <a href="https://www.spairally.com/privacy-policy" target="_blank" class="auth-consent-link">Privacy Policy</a>.</p>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- ─── Main App (hidden until logged in) ────────────── -->
+  <div id="app" style="display:none;" class="app-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <img src="images/spairally_app_logo.png" alt="Spairally logo" class="app-logo-sm">
+        <span class="logo-sep-sm">|</span>
+        <span class="sidebar-brand">Bella</span>
+        <button class="sidebar-close" onclick="toggleSidebar()"><i data-lucide="x"></i></button>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-item active" data-section="dashboard" onclick="navigate('dashboard',this)">
+          <i data-lucide="layout-dashboard" class="nav-icon"></i>
+          <span>Dashboard</span>
+        </a>
+        <a href="#" class="nav-item" data-section="history" onclick="navigate('history',this)">
+          <i data-lucide="activity" class="nav-icon"></i>
+          <span>Detection History</span>
+          <span class="nav-badge" id="history-badge"></span>
+        </a>
+        <a href="#" class="nav-item" data-section="users" onclick="navigate('users',this)">
+          <i data-lucide="users" class="nav-icon"></i>
+          <span>Users</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-user">
+          <div class="user-avatar" id="sidebar-avatar">A</div>
+          <div class="user-info">
+            <span class="user-name" id="sidebar-username">—</span>
+            <span class="user-institution" id="sidebar-institution">—</span>
+          </div>
+        </div>
+        <button class="btn-ghost-icon" onclick="logout()" title="Logout">
+          <i data-lucide="log-out"></i>
+        </button>
+      </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+    <!-- Main content -->
+    <div class="main-wrapper">
+
+      <!-- Topbar -->
+      <header class="topbar">
+        <button class="btn-ghost-icon" onclick="toggleSidebar()"><i data-lucide="menu"></i></button>
+        <div class="topbar-title" id="topbar-title">Dashboard</div>
+        <div class="topbar-right">
+          <div class="status-pill"><span class="status-dot live"></span><span>Live</span></div>
+          <div class="user-avatar xs" id="topbar-avatar">A</div>
+        </div>
+      </header>
+
+      <!-- Dashboard page -->
+      <section id="page-dashboard" class="page active">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Dashboard</h1>
+            <p class="page-subtitle" id="dash-subtitle">Loading your institution data…</p>
+          </div>
+          <button class="btn-secondary" onclick="refreshDashboard()">
+            <i data-lucide="refresh-cw"></i> Refresh
+          </button>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon green"><i data-lucide="shield-check"></i></div>
+            <div class="stat-body">
+              <span class="stat-label">Active Zones</span>
+              <span class="stat-value" id="stat-zones">—</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon red"><i data-lucide="alert-triangle"></i></div>
+            <div class="stat-body">
+              <span class="stat-label">Active Alerts</span>
+              <span class="stat-value" id="stat-alerts">—</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon blue"><i data-lucide="activity"></i></div>
+            <div class="stat-body">
+              <span class="stat-label">Total Detections</span>
+              <span class="stat-value" id="stat-detections">—</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon purple"><i data-lucide="users"></i></div>
+            <div class="stat-body">
+              <span class="stat-label">Total Users</span>
+              <span class="stat-value" id="stat-users">—</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          <div class="card map-card">
+            <div class="card-header">
+              <span class="card-title"><i data-lucide="map-pin"></i> Site Coverage Map</span>
+              <span class="card-tag" id="map-institution-label"></span>
+            </div>
+            <div id="map" class="map-container"></div>
+          </div>
+
+          <div class="card alerts-card">
+            <div class="card-header">
+              <span class="card-title"><i data-lucide="bell"></i> Recent Alerts</span>
+              <a href="#" class="card-link"
+                 onclick="navigate('history', document.querySelector('[data-section=history]'));return false;">
+                View all →
+              </a>
+            </div>
+            <div id="recent-alerts-list" class="alert-list">
+              <div class="empty-state-sm">No alerts yet</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Detection History page -->
+      <section id="page-history" class="page">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Detection History</h1>
+            <p class="page-subtitle">All events recorded for your institution</p>
+          </div>
+          <div class="header-actions">
+            <div class="search-wrapper">
+              <i data-lucide="search" class="search-icon"></i>
+              <input type="text" id="history-search" class="search-input"
+                     placeholder="Search detections…" oninput="filterHistory()" />
+            </div>
+            <select id="history-filter" class="select-input" onchange="filterHistory()">
+              <option value="">All Severity</option>
+              <option value="high">High</option>
+              <option value="medium">Medium</option>
+              <option value="low">Low</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>Location</th>
+                  <th>Severity</th>
+                  <th>Status</th>
+                  <th>Time</th>
+                </tr>
+              </thead>
+              <tbody id="history-tbody">
+                <tr><td colspan="5" class="table-empty">Loading…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Users page -->
+      <section id="page-users" class="page">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Users</h1>
+            <p class="page-subtitle">Members of your institution</p>
+          </div>
+          <div class="search-wrapper">
+            <i data-lucide="search" class="search-icon"></i>
+            <input type="text" id="users-search" class="search-input"
+                   placeholder="Search users…" oninput="filterUsers()" />
+          </div>
+        </div>
+
+        <div class="users-grid" id="users-grid">
+          <div class="table-empty" style="padding:2rem;">Loading…</div>
+        </div>
+      </section>
+
+    </div><!-- /.main-wrapper -->
+  </div><!-- /#app -->
+
+</div><!-- /#app-root -->
+
+  <!-- Third-party libs -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- App -->
+  <script src="bella.js"></script>
+
+</body>
+</html>
