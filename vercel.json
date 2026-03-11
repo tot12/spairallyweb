@@ -4,6 +4,10 @@
   "cleanUrls": false,
   "trailingSlash": false,
   "rewrites": [
+    { "source": "/delete-account", "destination": "/delete-account.html" },
+    { "source": "/privacy-policy", "destination": "/privacy-policy.html" },
+    { "source": "/terms-and-conditions", "destination": "/terms-and-conditions.html" },
+    { "source": "/sponsors", "destination": "/sponsors.html" },
     { "source": "/reset-password", "destination": "/reset-password.html" },
     { "source": "/login", "destination": "/bella.html" },
     { "source": "/dashboard", "destination": "/bella.html" },
