@@ -1,7 +1,7 @@
 {
   "buildCommand": null,
   "outputDirectory": ".",
-  "cleanUrls": true,
+  "cleanUrls": false,
   "trailingSlash": false,
   "rewrites": [
     { "source": "/reset-password", "destination": "/reset-password.html" },
@@ -9,7 +9,5 @@
     { "source": "/dashboard", "destination": "/bella.html" },
     { "source": "/users", "destination": "/bella.html" },
     { "source": "/history", "destination": "/bella.html" }
-   
-   
   ]
 }
