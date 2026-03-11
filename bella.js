@@ -275,10 +275,14 @@ async function loadPolygon() {
   }
 
   try {
+    console.log('[GEOFENCE] URL:', `${API_BASE}/bella/geofence`);
+    console.log('[GEOFENCE] Headers:', getAuthHeaders());
     const res = await fetch(`${API_BASE}/bella/geofence`, {
       headers: getAuthHeaders(),
     });
+    console.log('[GEOFENCE] Response status:', res.status);
     const data = await res.json();
+    console.log('[GEOFENCE] Response data:', data);
     applyPolygon(data);
   } catch (err) {
     console.warn('[dashboard] geofence fetch failed — using fallback demo polygon');
