@@ -316,10 +316,7 @@ function applyPolygon(geo) {
 
 async function loadDetections() {
   try {
-    const qs = currentUser?.organization
-      ? '?' + new URLSearchParams({ institution: currentUser.organization })
-      : '';
-    const res = await fetch(`${API_BASE}/bella/detections${qs}`, {
+    const res = await fetch(`${API_BASE}/bella/detections`, {
       headers: getAuthHeaders(),
     });
     const data = await res.json();
