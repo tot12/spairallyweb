@@ -267,7 +267,7 @@ window.refreshDashboard = function () { loadDashboard(); };
 
 async function loadPolygon() {
   if (!leafletMap) {
-    leafletMap = L.map('map', { zoomControl: true }).setView([51.5074, -0.1278], 14);
+    leafletMap = L.map('map', { zoomControl: true }).setView([-1.2921, 36.8219], 14);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '© OpenStreetMap',
@@ -287,22 +287,42 @@ async function loadPolygon() {
   } catch (err) {
     console.warn('[dashboard] geofence fetch failed — using fallback demo polygon');
     applyPolygon({
-      type: 'Feature',
       geometry: {
         type: 'MultiPolygon',
-        coordinates: [[[
-          [-0.1278, 51.5074], [-0.1270, 51.5074],
-          [-0.1270, 51.5080], [-0.1278, 51.5080],
-          [-0.1278, 51.5074],
-        ]]],
+        coordinates: [[[[36.8219, -1.2921], [36.8300, -1.2850], [36.8350, -1.2921], [36.8300, -1.3000], [36.8219, -1.2921]]]],
       },
     });
   }
 }
 
-function applyPolygon(geo) {
+function applyPolygon(geofence) {
   if (polygonLayer) leafletMap.removeLayer(polygonLayer);
-  polygonLayer = L.geoJSON(geo, {
+  
+  // Handle the backend response structure: { id, organization, geometry: { type, coordinates }, ... }
+  const geometry = geofence.geometry;
+  if (!geometry) {
+    console.warn('[applyPolygon] No geometry found in geofence data');
+    return;
+  }
+
+  // Convert to GeoJSON Feature format for Leaflet
+  const geoJsonFeature = {
+    type: 'Feature',
+    properties: {
+      id: geofence.id,
+      name: geofence.name,
+      organization: geofence.organization,
+      created_by: geofence.created_by,
+    },
+    geometry: geometry,
+  };
+
+  // Leaflet expects [lat, lng] but GeoJSON uses [lng, lat], so we need to flip coordinates
+  polygonLayer = L.geoJSON(geoJsonFeature, {
+    coordsToLatLng: function(coords) {
+      // GeoJSON is [lng, lat], Leaflet needs [lat, lng]
+      return L.latLng(coords[1], coords[0]);
+    },
     style: {
       color: '#3b82f6',
       weight: 2,
@@ -310,7 +330,13 @@ function applyPolygon(geo) {
       fillColor: '#3b82f6',
       fillOpacity: 0.12,
     },
+    onEachFeature: function(feature, layer) {
+      if (feature.properties && feature.properties.name) {
+        layer.bindPopup(`<strong>${feature.properties.name}</strong><br>Organization: ${feature.properties.organization || 'N/A'}`);
+      }
+    },
   }).addTo(leafletMap);
+  
   leafletMap.fitBounds(polygonLayer.getBounds(), { padding: [24, 24] });
 }
 
