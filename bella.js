@@ -10,6 +10,12 @@
 
 const API_BASE = "https://nchisecapi-production.up.railway.app";
 
+// Stripe Payment Link - Replace with your actual Stripe Payment Link
+const STRIPE_PAYMENT_LINK = "https://buy.stripe.com/00wcN4eyUczi2vuc5ddAk03";
+
+// Subscription status
+let isSubscribed = false;
+
 function getAuthHeaders() {
   const token = localStorage.getItem('spairally_token');
   const headers = { 'Content-Type': 'application/json' };
@@ -163,6 +169,29 @@ function initAuthListeners() {
 
 function onLogin(user) {
   currentUser = user;
+  
+  // Check subscription status
+  isSubscribed = user.subscribed === true || user.subscription_status === 'active';
+  
+  // Check for successful payment return from Stripe
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('payment') === 'success') {
+    // Payment was successful, verify with backend
+    verifySubscription();
+    // Clean up URL
+    history.replaceState(null, '', location.pathname);
+  }
+  
+  // If not subscribed, show subscription modal
+  if (!isSubscribed) {
+    showSubscriptionModal();
+    return; // Don't proceed to app until subscribed
+  }
+  
+  proceedToApp(user);
+}
+
+function proceedToApp(user) {
   document.getElementById('auth-screen').style.display = 'none';
   document.getElementById('app').style.display = '';
 
@@ -179,6 +208,78 @@ function onLogin(user) {
   loadDashboard();
 
   if (window.lucide) lucide.createIcons();
+}
+
+// ─────────────────────────────────────────────────────────────
+// Subscription Management
+// ─────────────────────────────────────────────────────────────
+
+function showSubscriptionModal() {
+  document.getElementById('subscription-modal').style.display = 'flex';
+  if (window.lucide) lucide.createIcons();
+}
+
+function closeSubscriptionModal() {
+  document.getElementById('subscription-modal').style.display = 'none';
+  // Optional: Log out user if they decline subscription
+  // logout();
+}
+window.closeSubscriptionModal = closeSubscriptionModal;
+
+function redirectToStripe() {
+  // Build Stripe Payment Link with customer email for tracking
+  const email = currentUser?.email || '';
+  const userId = currentUser?.id || '';
+  
+  // Add customer info to Stripe link for webhook tracking
+  const stripeUrl = new URL(STRIPE_PAYMENT_LINK);
+  stripeUrl.searchParams.set('prefilled_email', email);
+  stripeUrl.searchParams.set('client_reference_id', userId);
+  
+  // Set success and cancel URLs
+  const successUrl = `${window.location.origin}/dashboard?payment=success`;
+  const cancelUrl = `${window.location.origin}/login?payment=cancelled`;
+  
+  // Note: For Stripe Payment Links, success/cancel URLs are configured in Stripe Dashboard
+  // The client_reference_id and prefilled_email help track the payment
+  
+  window.location.href = stripeUrl.toString();
+}
+window.redirectToStripe = redirectToStripe;
+
+async function verifySubscription() {
+  try {
+    const res = await fetch(`${API_BASE}/bella/subscription/verify`, {
+      headers: getAuthHeaders(),
+    });
+    if (res.ok) {
+      const data = await res.json();
+      if (data.subscribed || data.subscription_status === 'active') {
+        isSubscribed = true;
+        currentUser.subscribed = true;
+        saveUser(currentUser);
+        closeSubscriptionModal();
+        proceedToApp(currentUser);
+      }
+    }
+  } catch (err) {
+    console.warn('[subscription] Verification failed:', err);
+  }
+}
+
+async function checkSubscriptionStatus() {
+  try {
+    const res = await fetch(`${API_BASE}/bella/subscription/status`, {
+      headers: getAuthHeaders(),
+    });
+    if (res.ok) {
+      const data = await res.json();
+      return data.subscribed === true || data.subscription_status === 'active';
+    }
+  } catch (err) {
+    console.warn('[subscription] Status check failed:', err);
+  }
+  return false;
 }
 
 window.logout = function () {
