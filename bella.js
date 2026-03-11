@@ -425,11 +425,11 @@ function applyPolygon(geofence) {
       return L.latLng(coords[1], coords[0]);
     },
     style: {
-      color: '#3b82f6',
+      color: '#ffffff',
       weight: 2,
       opacity: 0.9,
-      fillColor: '#3b82f6',
-      fillOpacity: 0.12,
+      fillColor: '#ffffff',
+      fillOpacity: 0.1,
     },
     onEachFeature: function(feature, layer) {
       if (feature.properties && feature.properties.name) {
