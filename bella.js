@@ -346,8 +346,20 @@ async function loadDetections() {
       headers: getAuthHeaders(),
     });
     const data = await res.json();
-    allDetections = data || [];
-  } catch {
+    console.log('[DETECTIONS] Response data:', data);
+    // Handle various response formats: array, object with detections property, or single object
+    if (Array.isArray(data)) {
+      allDetections = data;
+    } else if (data && Array.isArray(data.detections)) {
+      allDetections = data.detections;
+    } else if (data && typeof data === 'object') {
+      // If it's a single detection object, wrap it in an array
+      allDetections = [data];
+    } else {
+      allDetections = [];
+    }
+  } catch (err) {
+    console.warn('[DETECTIONS] Fetch failed:', err);
     allDetections = [
       { id:'d1', type:'Smoke Detection',  location:'Building A, Floor 2', institution: currentUser?.organization, severity:'high',   status:'resolved', time:'2026-03-10T08:32:00Z' },
       { id:'d2', type:'Motion Detected',  location:'Parking Zone C',      institution: currentUser?.organization, severity:'low',    status:'active',   time:'2026-03-10T09:15:00Z' },
