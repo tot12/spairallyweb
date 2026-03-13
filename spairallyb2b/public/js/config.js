@@ -4,7 +4,7 @@
    Uses native fetch — no axios dependency needed.
 ═══════════════════════════════════════════════════ */
 
-const API_BASE = 'https://nchisecapi-production.up.railway.app';
+const API_BASE = 'https://api.spairally.com';
 
 // ── Auth header helper — used by every authenticated fetch ──
 function getAuthHeaders() {

@@ -8,7 +8,7 @@
 // config
 // ─────────────────────────────────────────────────────────────
 
-const API_BASE = "https://nchisecapi-production.up.railway.app";
+const API_BASE = "https://api.spairally.com";
 
 // Stripe Payment Link - Replace with your actual Stripe Payment Link
 const STRIPE_PAYMENT_LINK = "https://buy.stripe.com/00wcN4eyUczi2vuc5ddAk03";

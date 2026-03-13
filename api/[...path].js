@@ -3,7 +3,7 @@
 // Runs server-side: browser calls spairally.com/api/auth/login → this function
 // calls Railway internally → no CORS ever reaches the browser.
 
-const RAILWAY = 'https://nchisecapi-production.up.railway.app';
+const RAILWAY = 'https://api.spairally.com'; // Internal URL for Railway (not exposed to browser)
 
 module.exports = async function handler(req, res) {
   // req.query.path is the catch-all array, e.g. /api/auth/login → ['auth','login']
