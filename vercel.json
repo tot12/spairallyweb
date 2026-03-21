@@ -9,6 +9,7 @@
     { "source": "/terms-and-conditions", "destination": "/terms-and-conditions.html" },
     { "source": "/sponsors", "destination": "/sponsors.html" },
     { "source": "/reset-password", "destination": "/reset-password.html" },
+    { "source": "/confirm-delete", "destination": "/confirm-delete.html" },
     { "source": "/login", "destination": "/bella.html" },
     { "source": "/dashboard", "destination": "/bella.html" },
     { "source": "/users", "destination": "/bella.html" },

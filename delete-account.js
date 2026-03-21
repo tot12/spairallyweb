@@ -26,6 +26,34 @@ document.addEventListener('DOMContentLoaded', ()=>{
     });
   }
 
+  // Confirm delete via token in URL (?token=...)
+  const urlParams = new URLSearchParams(window.location.search);
+  const confirmDeleteToken = urlParams.get('token');
+  if (window.location.pathname.endsWith('delete-account.html') && confirmDeleteToken) {
+    // Hide forms, show a message area
+    const mainContainer = document.querySelector('.delete-account-container');
+    if(mainContainer) {
+      mainContainer.innerHTML = `<div class="text-center py-5"><div id="confirmDeleteMessage"></div></div>`;
+    }
+    const confirmDeleteMessage = document.getElementById('confirmDeleteMessage');
+    showMessage(confirmDeleteMessage, 'Confirming account deletion…', 'info');
+    // Make API request
+    fetch(`${API_URL}/auth/confirm-delete?token=${encodeURIComponent(confirmDeleteToken)}`)
+      .then(async res => {
+        if(res.ok) {
+          showMessage(confirmDeleteMessage, 'Your account has been deleted successfully.Your data will be deleted within 90 days.', 'success');
+        } else {
+          const data = await res.json().catch(()=>({}));
+          const msg = data && data.message ? data.message : 'Unable to delete account. The token may be invalid or expired.';
+          showMessage(confirmDeleteMessage, msg, 'danger');
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        showMessage(confirmDeleteMessage, 'Network error — please try again later.', 'danger');
+      });
+  }
+
   // Password reset handling
   const params = new URLSearchParams(window.location.search);
   const tokenParam = params.get('token') || params.get('reset_token');
